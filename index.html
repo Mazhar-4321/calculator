@@ -1,0 +1,419 @@
+<html>
+    <head>
+        <title>Hi</title>
+        <style>
+            body{
+                background-color: black;
+            }
+            button:hover
+            {
+                background-color: teal;
+            }
+          #mazhar
+          {
+              height: 250px;
+              width:500px;
+              padding-top: 150px;
+              font-size: 50px;
+              background-color: rgb(48, 99, 99);
+              color:white;
+              padding-left: 10px;
+              margin-left: 500px;
+              font-family: Verdana, Geneva, Tahoma, sans-serif;
+              
+              
+          }
+          table
+          {
+              margin-left:500px ;
+          }
+          td
+          {
+              padding: 0px;
+              font-size: 20px;
+          }
+          button
+          {
+              
+              width:125px;
+              font-size: 20px;
+              text-align: center;
+              height: 50px;
+              margin:0px;
+              color: white;
+opacity:0.4;
+              /* box-shadow: teal; */
+              background-color: black;
+          }
+        </style>
+        <script type="text/javascript">
+        var text="";
+        var M="";
+        var symbol=0;
+       
+        function calculator(id)
+        {
+        // alert(id);
+       
+        var string="";
+        if(id=='0'||id=='1'||id=='2'||id=='3'||id=='4'||id=='5'||id=='6'||id=='7'||id=='8'||id=='9'||id=='.')
+        {
+            
+            text=text+id;
+        }
+        if((id=='+'||id=='-'||id=='*'||id=='%')&&text.length>0&&text.charAt(text.length-1)!='.'
+        &&text.charAt(text.length-1)!='+'&&text.charAt(text.length-1)!='-'&&text.charAt(text.length-1)!='*'
+        &&text.charAt(text.length-1)!='%')
+        {
+            
+          if(text.length==0&&id=='-')
+          {
+           //M="-";
+          }
+          else
+          {
+               text=text+id;
+          }
+           
+        }
+        if(id=='=')
+        {
+           console.log(text+" "+M)
+
+            if(text.charAt(text.length-1)=='.')
+            {
+                text=text+0;
+            }
+         
+          string=text;
+          if(string.charAt(0)=='-')
+          {
+              M="-";
+              string=string.substring(1,string.length);
+          }
+          while(true)
+          {
+              var flag=true;
+              var var1=-1,var2;
+              var highest_priority=0;
+              var symbol_position=-1;
+              for(var i=0;i<string.length;i++)
+              {
+                    if(string.charAt(i)=='+')
+                    {
+                        if(highest_priority<1)
+                        {
+                            highest_priority=1;symbol_position=i;flag=false;
+                        }
+                    }
+                    if(string.charAt(i)=='-')
+                    {
+                        if(highest_priority<1)
+                        {
+                            highest_priority=1;symbol_position=i;flag=false;
+                        }
+                    }
+                    if(string.charAt(i)=='*')
+                    {
+                        if(highest_priority<2)
+                        {
+                            highest_priority=2;symbol_position=i;flag=false;
+                        }
+                    }
+                    if(string.charAt(i)=='%')
+                    {
+                        if(highest_priority<2)
+                        {
+                            highest_priority=2;symbol_position=i;flag=false;
+                        }
+                    }
+
+              }
+               if(flag)
+               {
+                   break;
+               }
+               else
+               {
+                   var temp1=symbol_position;
+                   var num1="",num2="";
+                   var answer;
+                   while(true)
+                   {
+                       temp1--;
+                       if(temp1<0||string.charAt(temp1)=='+'||string.charAt(temp1)=='-'||string.charAt(temp1)=='*'||string.charAt(temp1)=='%')
+                       {
+                           break;
+                       }
+                       else
+{
+    num1= string.charAt(temp1)+num1;
+}
+                   }
+                  var temp11=symbol_position;
+                   while(true)
+                   {
+                       temp11++;
+                       if(temp11==string.length|| string.charAt(temp11)=='+'||string.charAt(temp11)=='-'||string.charAt(temp11)=='*'||string.charAt(temp11)=='%')
+                       {
+                           break;
+                       }
+                       else
+{
+    num2= num2+string.charAt(temp11);
+}
+                   }
+               
+                     if(temp1<0&&M=="-")
+                     {
+                         num1=Number("-"+num1);M="";
+                     }
+                     else
+                     {
+                   num1=Number(num1);
+                     }
+                     console.log(num1);
+                   num2=Number(num2);
+                  
+                   if(string.charAt(symbol_position)=='*')
+                   {   ans=num1*num2; }
+                   if(string.charAt(symbol_position)=='+')
+                   {   ans=num1+num2; }
+                   if(string.charAt(symbol_position)=='-')
+                   {     ans=num1-num2;}
+                   if(string.charAt(symbol_position)=='%')
+                   {     ans=num1%num2;}
+                   var temp_string="";
+                   for(var i=0;i<=temp1;i++)
+                   {
+                       temp_string=temp_string+string.charAt(i);
+                   }
+                   temp_string=temp_string+ans;
+                   for(var i=temp11;i<string.length;i++)
+                   {
+                       temp_string=temp_string+string.charAt(i);
+                   }
+                   console.log(answer);
+                   console.log(temp_string);
+                   if(temp_string.charAt(0)=='-')
+                   {
+                       M="-";
+                       string=temp_string.substring(1,temp_string.length);
+                   }
+                  else
+                  string=temp_string;
+                }
+            }
+            console.log("ji"+answer);
+            if(M=='-')
+       text="-"+string;
+       else
+       text=string;
+       
+        }
+       
+        if(id=='CL')
+        {
+            text="";M="";
+        }
+       if(text.length==0&&id=='-')
+       {
+           M="-";
+       }
+        console.log(M)
+        if(id=='DEL')
+        {
+            console.log(text)
+            if(text.length>0)
+            {
+            console.log("del")
+            console.log(text+"---->"+M)
+            
+            var temp_text=text.charAt(0)!='-'?M+text:text;
+            temp_text=temp_text.substring(0,temp_text.length-1);
+            document.getElementById("mazhar").innerHTML=temp_text;
+            text=temp_text.charAt(0)=="-"?temp_text.substring(1,temp_text.length):temp_text.substring(0,temp_text.length);
+            return;
+            }
+            else{
+
+                M="";document.getElementById("mazhar").innerHTML="";
+            }
+            // if(text.length+M.length==0)
+            // M="";
+            // console.log("pehla")
+            
+            // if(M=="-")
+            // document.getElementById("mazhar").innerHTML="-"+text;
+            // else
+            // document.getElementById("mazhar").innerHTML=text;return;
+        }
+        
+        if(M=="-"&&id!="="&&text.charAt(0)!="-")
+        {
+            
+        document.getElementById("mazhar").innerHTML="-"+text;
+        }
+        else
+        {
+            console.log("teesra")
+        document.getElementById("mazhar").innerHTML=text;
+        }
+        // text_box.innerHTML=id;
+        // alert(text_box.innerText);
+       
+        }
+        function add()
+        {
+
+        }
+        function sub()
+        {
+
+        }
+        function div()
+        {
+
+        }
+        </script>
+    </head>
+    <body>
+        <script>
+            document.onkeydown=function(evt){
+            if(evt.key=="Backspace")
+            {
+                calculator("DEL")
+            }
+            }
+            document.onkeypress = function(evt) {
+                
+    evt = evt || window.event;
+    var charCode = evt.which || evt.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    console.log(charStr);
+    if (charStr == "-") {
+        calculator("-");
+    }
+    if(charStr == "+")
+    {
+        calculator("+");
+    }
+    if(charStr == "*")
+    {
+        calculator("*");
+    }
+    if(charStr == "%")
+    {
+        calculator("%");
+    }
+    if(charStr == "=")
+    {
+        calculator("=");
+    }
+    if(charStr == "1")
+    {
+        calculator("1");
+    }
+    if(charStr == "2")
+    {
+        calculator("2");
+    }
+    if(charStr == "3")
+    {
+        calculator("3");
+    }
+    if(charStr == "4")
+    {
+        calculator("4");
+    }
+    if(charStr == "5")
+    {
+        calculator("5");
+    }
+    if(charStr == "6")
+    {
+        calculator("6");
+    }
+    if(charStr == "7")
+    {
+        calculator("7");
+    }
+    if(charStr == "8")
+    {
+        calculator("8");
+    }
+    if(charStr == "9")
+    {
+        calculator("9");
+    }
+    if(charStr == "0")
+    {
+        calculator("0");
+    }
+    if(charStr == ".")
+    {
+        calculator(".");
+    }
+};
+//              document.body.addEventListener("keydown", function(event) {
+//                 console.log(event.keyCode);
+//                 if(event.keyCode==187)
+//                 {
+//                     console.log(event.keyCode+"jjjjj")
+//                 }
+//     if((event.keyCode-96>=0&&event.keyCode-96<=9))
+//     {
+//         calculator(event.keyCode-96+"");
+//         console.log(event.keyCode)
+//     }
+//     if((event.keyCode-48>=0&&event.keyCode-48<=9))
+//     {
+//         calculator(event.keyCode-48+"");
+//         console.log(event.keyCode)
+//     }
+// });
+// document.body.addEventListener("keyup", function(event) {
+//                 console.log("keyup"+event.keyCode)
+    
+// });
+        </script>
+            <div  id="mazhar"   ></div><br>
+            <table>
+                <tr>
+                    <td><button id="one" onclick="calculator('1')">1</button></td>
+                    <td><button id="two" onclick="calculator('2')">2</button></td>
+                    <td><button id="three" onclick="calculator('3')">3</button></td>
+                    <td><button id="four" onclick="calculator('4')">4</button></td>
+                </tr>
+                <tr>
+                    <td><button id="five" onclick="calculator('5')">5</button></td>
+                    <td><button id="six" onclick="calculator('6')">6</button></td>
+                    <td><button id="seven" onclick="calculator('7')">7</button></td>
+                    <td><button id="eight"onclick="calculator('8')">8</button></td>
+                </tr>
+                <tr>
+                    <td><button id="nine" onclick="calculator('9')">9</button></td>
+                    <td><button id="zero" onclick="calculator('0')">0</button></td>
+                    <td><button id="equals" onclick="calculator('=')">=</button></td>
+                    <td><button id="plus" onclick="calculator('+')">+</button></td>
+                </tr>
+                <tr>
+                    <td><button id="minus" onclick="calculator('-')">-</button></td>
+                    <td><button id="mul" onclick="calculator('*')">*</button></td>
+                    <td><button id="div" onclick="calculator('%')">%</button></td>
+                    <td><button id="point" onclick="calculator('.')">.</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button id="clear" onclick="calculator('CL')">CL</button>
+                    </td>
+                    <td>
+                        <button id="del" onclick="calculator('DEL')">DEL</button>
+                    </td>
+                </tr>
+            </table>
+           
+        
+
+    </body>
+</html>
